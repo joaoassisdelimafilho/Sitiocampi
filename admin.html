@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <header class="admin-header">
+        <h1>Painel de Controle - Sítio Campi</h1>
+        <button id="logout-button">Sair</button>
+    </header>
+
+    <main class="container">
+        <!-- Seção de Configurações Gerais -->
+        <div class="form-container">
+            <h3>Configurações Gerais</h3>
+            <form id="settings-form">
+                <div class="form-group">
+                    <label for="setting-site-name">Nome do Sítio</label>
+                    <input type="text" id="setting-site-name" required>
+                </div>
+                <!-- NOVO CAMPO ADICIONADO AQUI -->
+                <div class="form-group">
+                    <label for="setting-site-slogan">Slogan do Site (frase abaixo do nome)</label>
+                    <input type="text" id="setting-site-slogan" required>
+                </div>
+                <div class="form-group">
+                    <label for="setting-whatsapp">Nº de WhatsApp (Formato: 5511999998888)</label>
+                    <input type="text" id="setting-whatsapp" required>
+                </div>
+                <button type="submit">Salvar Configurações</button>
+            </form>
+        </div>
+
+        <!-- Seção de Produtos -->
+        <div class="form-container">
+            <h3>Adicionar / Editar Produto</h3>
+            <form id="product-form">
+                <input type="hidden" id="product-id">
+                <div class="form-group">
+                    <label for="product-name">Nome do Produto</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Descrição</label>
+                    <textarea id="product-description" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Preço (ex: R$ 50,00)</label>
+                    <input type="text" id="product-price" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-image-url">Link da Imagem (URL do Postimages, etc.)</label>
+                    <input type="url" id="product-image-url" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Salvar Produto</button>
+                    <button type="button" id="cancel-edit">Cancelar Edição</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="product-list-container">
+            <h3>Produtos Cadastrados</h3>
+            <div id="admin-product-list"></div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
