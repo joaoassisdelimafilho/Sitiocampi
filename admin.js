@@ -1,4 +1,4 @@
-// admin.js (Corrigido o erro de digitação 'slogan' para 'siteSlogan')
+// admin.js (Ajustado para o novo layout da lista)
 
 window.addEventListener('load', function() {
     // --- ELEMENTOS DO DOM ---
@@ -30,18 +30,15 @@ window.addEventListener('load', function() {
     // --- LÓGICA DE CONFIGURAÇÕES ---
     const settingsRef = db.collection('settings').doc('siteConfig');
 
-    // Carrega os dados existentes
     settingsRef.get().then(doc => {
         if (doc.exists) {
             const data = doc.data();
             siteNameInput.value = data.siteName || '';
-            // CORREÇÃO APLICADA AQUI:
-            siteSloganInput.value = data.siteSlogan || ''; // Era data.slogan
+            siteSloganInput.value = data.siteSlogan || '';
             whatsappInput.value = data.whatsappNumber || '';
         }
     });
 
-    // Salva os dados
     settingsForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const submitButton = e.target.querySelector('button');
@@ -80,9 +77,11 @@ window.addEventListener('load', function() {
             const product = doc.data();
             const item = document.createElement('div');
             item.className = 'product-item';
+
+            // MUDANÇA AQUI: Nova estrutura HTML para funcionar com o Grid
             item.innerHTML = `
-                <span><strong>${product.name}</strong> - ${product.price}</span>
-                <div>
+                <span class="product-text"><strong>${product.name}</strong> - ${product.price}</span>
+                <div class="product-actions">
                     <button class="btn-edit" data-id="${doc.id}">Editar</button>
                     <button class="btn-delete" data-id="${doc.id}">Excluir</button>
                 </div>
