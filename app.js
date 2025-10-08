@@ -1,16 +1,14 @@
-// app.js (Versão Final, Testada e Corrigida - sem onAuthStateChanged)
+// app.js (Atualizado para usar a imagem de fundo no cabeçalho)
 
 window.addEventListener('load', function() {
     console.log("Página carregada, app.js executando com 'defer'.");
 
-    // --- REGISTRO DO SERVICE WORKER (PWA) ---
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
             .then(registration => console.log('PWA: Service Worker registrado com sucesso.'))
             .catch(err => console.error('PWA: Falha ao registrar Service Worker:', err));
     }
 
-    // --- LÓGICA PRINCIPAL DA APLICAÇÃO ---
     if (typeof firebase === 'undefined' || typeof firebase.firestore === 'undefined') {
         console.error("ERRO CRÍTICO: Firebase ou Firestore não foi carregado.");
         document.getElementById('product-list').innerHTML = `<p style="color: red;">Erro crítico: O banco de dados não pôde ser carregado.</p>`;
@@ -19,6 +17,8 @@ window.addEventListener('load', function() {
 
     const db = firebase.firestore();
 
+    // Elementos do DOM
+    const header = document.querySelector('header'); // NOVO: Seleciona o cabeçalho inteiro
     const productList = document.getElementById('product-list');
     const siteTitle = document.getElementById('site-title');
     const siteSlogan = document.getElementById('site-slogan');
@@ -34,9 +34,16 @@ window.addEventListener('load', function() {
             console.warn("AVISO: Documento de configurações não encontrado!");
         }
 
+        // --- LÓGICA DA IMAGEM DE FUNDO ---
+        // Se houver uma URL de imagem de fundo, aplica-a ao cabeçalho
+        if (settings.headerBgImageUrl) {
+            header.style.backgroundImage = `url('${settings.headerBgImageUrl}')`;
+        }
+
         const whatsappNumber = settings.whatsappNumber || '5500000000000';
+        
         siteTitle.textContent = settings.siteName || 'Sítio';
-        siteSlogan.textContent = settings.siteSlogan || 'Carregando slogan...';
+        siteSlogan.textContent = settings.siteSlogan || 'Produtos da nossa terra para sua casa.';
         pageTitle.textContent = settings.siteName || 'Sítio';
 
         db.collection('products').orderBy('name').onSnapshot(snapshot => {
