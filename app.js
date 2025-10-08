@@ -1,8 +1,11 @@
-// app.js (Versão Final Corrigida)
+// app.js (Versão Final com verificação de inicialização)
 
-window.addEventListener('load', function() {
+// A função principal só será executada quando o Firebase estiver 100% carregado.
+// Usamos onAuthStateChanged como um gatilho seguro para iniciar a lógica do app.
+firebase.auth().onAuthStateChanged(() => {
+    console.log("Firebase pronto. Iniciando a lógica principal do app.");
+
     // --- 1. REGISTRO DO SERVICE WORKER (PWA) ---
-    // A primeira coisa que fazemos é registrar o Service Worker.
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
             .then(registration => console.log('PWA: Service Worker registrado com sucesso.'))
@@ -10,12 +13,9 @@ window.addEventListener('load', function() {
     }
 
     // --- 2. LÓGICA PRINCIPAL DA APLICAÇÃO ---
-    // Somente depois, continuamos com a lógica do Firebase, tudo dentro do mesmo bloco.
-    
-    if (typeof firebase === 'undefined' || typeof firebase.firestore === 'undefined') {
-        console.error("ERRO CRÍTICO: Firebase ou Firestore não foi carregado.");
-        // Mostra uma mensagem de erro mais clara para o usuário
-        document.getElementById('product-list').innerHTML = `<p style="color: red;">Erro de configuração. O Firebase não carregou corretamente.</p>`;
+    if (typeof firebase.firestore === 'undefined') {
+        console.error("ERRO CRÍTICO: Firestore não está disponível.");
+        document.getElementById('product-list').innerHTML = `<p style="color: red;">Erro crítico: O banco de dados não pôde ser carregado.</p>`;
         return;
     }
 
@@ -38,7 +38,6 @@ window.addEventListener('load', function() {
             console.warn("AVISO: Documento de configurações não encontrado! Usando valores padrão.");
         }
 
-        // Atualiza os elementos da página com os dados do Firebase
         const whatsappNumber = settings.whatsappNumber || '5500000000000';
         siteTitle.textContent = settings.siteName || 'Sítio';
         siteSlogan.textContent = settings.siteSlogan || 'Produtos frescos da roça, direto para sua mesa!';
@@ -46,7 +45,6 @@ window.addEventListener('load', function() {
 
         // Busca os produtos
         db.collection('products').orderBy('name').onSnapshot(snapshot => {
-            // Limpa a área de produtos (removendo os skeletons de carregamento)
             productList.innerHTML = ''; 
             
             if (snapshot.empty) {
@@ -75,7 +73,8 @@ window.addEventListener('load', function() {
             });
         }, error => {
             console.error("ERRO AO BUSCAR PRODUTOS:", error);
-            productList.innerHTML = `<p style="color: red;">Erro ao carregar produtos. Verifique as regras do Firestore e o console (F12).</p>`;
+            // Este erro agora deve ser mais específico se acontecer
+            productList.innerHTML = `<p style="color: red;">Erro ao carregar produtos. Verifique o console para detalhes (F12).</p>`;
         });
 
     }).catch(error => {
