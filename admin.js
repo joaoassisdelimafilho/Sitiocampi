@@ -1,11 +1,11 @@
-// admin.js (Atualizado para incluir o Slogan)
+// admin.js (Corrigido o erro de digitação 'slogan' para 'siteSlogan')
 
 window.addEventListener('load', function() {
     // --- ELEMENTOS DO DOM ---
     const logoutButton = document.getElementById('logout-button');
     const settingsForm = document.getElementById('settings-form');
     const siteNameInput = document.getElementById('setting-site-name');
-    const siteSloganInput = document.getElementById('setting-site-slogan'); // NOVO
+    const siteSloganInput = document.getElementById('setting-site-slogan');
     const whatsappInput = document.getElementById('setting-whatsapp');
     const productForm = document.getElementById('product-form');
     const productIdInput = document.getElementById('product-id');
@@ -35,7 +35,8 @@ window.addEventListener('load', function() {
         if (doc.exists) {
             const data = doc.data();
             siteNameInput.value = data.siteName || '';
-            siteSloganInput.value = data.siteSlogan || ''; // NOVO
+            // CORREÇÃO APLICADA AQUI:
+            siteSloganInput.value = data.siteSlogan || ''; // Era data.slogan
             whatsappInput.value = data.whatsappNumber || '';
         }
     });
@@ -48,7 +49,7 @@ window.addEventListener('load', function() {
 
         settingsRef.set({
             siteName: siteNameInput.value,
-            siteSlogan: siteSloganInput.value, // NOVO
+            siteSlogan: siteSloganInput.value,
             whatsappNumber: whatsappInput.value
         }, { merge: true })
         .then(() => {
