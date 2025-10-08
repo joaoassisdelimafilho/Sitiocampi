@@ -1,7 +1,6 @@
-// app.js (Versão Definitiva - Testada e Comprovada)
+// app.js (Versão Final e Definitiva)
 
 window.addEventListener('load', function() {
-    // ... (código inicial sem alterações) ...
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').then(reg => console.log('SW registrado')).catch(err => console.error('Erro SW', err));
     }
