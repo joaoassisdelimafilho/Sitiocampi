@@ -1,4 +1,4 @@
-/* style.css (Versão Final com proporção de imagem universal) */
+/* style.css (Versão com layout de card profissional) */
 :root {
     --primary-color: #386641;
     --secondary-color: #6A994E;
@@ -96,33 +96,30 @@ header p {
     box-shadow: 0 12px 24px rgba(0,0,0,0.12);
 }
 
-/* ================================================== */
-/*        NOVA ESTRUTURA PARA IMAGEM PROPORCIONAL     */
-/* ================================================== */
-
-/* 1. O container da imagem */
 .product-image-container {
     position: relative;
     width: 100%;
-    /* A mágica: padding-top de 75% cria uma proporção 4:3 (3 dividido por 4 = 0.75) */
-    /* Para uma imagem quadrada (1:1), use 100% */
     padding-top: 75%; 
     background-color: #e0e0e0;
     border-bottom: 1px solid #eee;
 }
 
-/* 2. A imagem em si, posicionada dentro do container */
 .product-card img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cobre a área sem distorcer */
+    object-fit: cover;
 }
+
+/* ================================================== */
+/*        LAYOUT PROFISSIONAL DO CARD DE PRODUTO      */
+/* ================================================== */
 
 .product-info {
     padding: 20px;
+    /* 1. O container de informações agora é flexível e ocupa todo o espaço restante */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -138,7 +135,8 @@ header p {
 .product-info .description {
     font-size: 0.95em;
     color: #666;
-    flex-grow: 1;
+    /* 2. A descrição não cresce mais para preencher o espaço */
+    /* flex-grow: 1; (REMOVIDO) */
     margin-bottom: 15px;
 }
 
@@ -146,6 +144,9 @@ header p {
     font-size: 1.4em;
     font-weight: 700;
     color: var(--secondary-color);
+    /* 3. A MÁGICA: O preço agora empurra todo o espaço vazio para cima dele */
+    margin-top: auto; /* Isso alinha o preço e o botão na base do card */
+    padding-top: 15px; /* Adiciona um respiro acima do preço */
 }
 
 .buy-button {
@@ -163,6 +164,10 @@ header p {
     font-size: 1.1em;
     font-weight: 500;
     transition: background-color 0.3s ease;
+    /* Adicionado para remover a borda arredondada apenas no topo */
+    border-radius: 0 0 12px 12px;
+    margin: 0 -20px -20px -20px; /* Faz o botão ocupar toda a largura do card */
+    width: calc(100% + 40px);
 }
 
 .buy-button:hover {
@@ -181,7 +186,7 @@ footer {
 .skeleton-card {
     background-color: #e0e0e0;
     border-radius: 12px;
-    height: 400px;
+    height: 450px; /* Ajustado para o novo tamanho potencial */
     animation: pulse 1.5s infinite ease-in-out;
 }
 
