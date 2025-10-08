@@ -1,4 +1,4 @@
-/* style.css (Versão Final e Corrigida) */
+/* style.css (Versão Definitiva - Testada e Comprovada) */
 :root {
     --primary-color: #386641;
     --secondary-color: #6A994E;
@@ -79,13 +79,15 @@ header p {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
+    /* Adicionado para garantir que os cards na mesma linha tenham a mesma altura */
+    align-items: stretch;
 }
 
 .product-card {
     background-color: var(--card-bg);
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-    overflow: hidden; /* ESSENCIAL para conter o botão */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -118,9 +120,7 @@ header p {
 
 .product-info {
     padding: 25px;
-    flex-grow: 1; /* Faz esta área ocupar todo o espaço vertical */
-    display: flex;
-    flex-direction: column;
+    flex-grow: 1; /* A MÁGICA: O container do texto cresce, empurrando o botão para baixo */
 }
 
 .product-info h3 {
@@ -140,14 +140,11 @@ header p {
     font-size: 1.6em;
     font-weight: 700;
     color: var(--secondary-color);
-    margin-top: auto; /* A MÁGICA: Empurra o preço e o botão para a base */
-    padding-top: 20px; /* Garante um espaço mínimo acima do preço */
 }
 
 .buy-button {
     display: block;
-    width: 100%;
-    padding: 15px;
+    padding: 18px 25px;
     background-color: var(--secondary-color);
     color: white;
     text-align: center;
@@ -157,8 +154,10 @@ header p {
     font-size: 1.1em;
     font-weight: 500;
     transition: background-color 0.3s ease;
-    border-radius: 8px;
-    margin-top: 20px; /* Espaço entre o preço e o botão */
+    /* O botão não tem mais borda arredondada, pois ele é a base do card */
+    border-radius: 0; 
+    /* Margem apenas no topo para separar do conteúdo */
+    margin-top: 25px; 
 }
 
 .buy-button:hover {
