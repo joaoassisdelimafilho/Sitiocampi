@@ -1,4 +1,4 @@
-/* style.css (Versão Definitiva - Testada e Comprovada) */
+/* style.css (Versão Final com Botão Arredondado) */
 :root {
     --primary-color: #386641;
     --secondary-color: #6A994E;
@@ -79,7 +79,6 @@ header p {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
-    /* Adicionado para garantir que os cards na mesma linha tenham a mesma altura */
     align-items: stretch;
 }
 
@@ -114,13 +113,11 @@ header p {
     object-fit: cover;
 }
 
-/* ================================================== */
-/*        ESTRUTURA FINAL DO CARD DE PRODUTO          */
-/* ================================================== */
-
 .product-info {
     padding: 25px;
-    flex-grow: 1; /* A MÁGICA: O container do texto cresce, empurrando o botão para baixo */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-info h3 {
@@ -140,11 +137,18 @@ header p {
     font-size: 1.6em;
     font-weight: 700;
     color: var(--secondary-color);
+    margin-top: auto;
+    padding-top: 20px;
 }
+
+/* ================================================== */
+/*        BOTÃO COM O DESIGN CORRETO                  */
+/* ================================================== */
 
 .buy-button {
     display: block;
-    padding: 18px 25px;
+    width: 100%;
+    padding: 15px;
     background-color: var(--secondary-color);
     color: white;
     text-align: center;
@@ -154,10 +158,9 @@ header p {
     font-size: 1.1em;
     font-weight: 500;
     transition: background-color 0.3s ease;
-    /* O botão não tem mais borda arredondada, pois ele é a base do card */
-    border-radius: 0; 
-    /* Margem apenas no topo para separar do conteúdo */
-    margin-top: 25px; 
+    margin-top: 20px;
+    /* A MUDANÇA ESTÁ AQUI: Adicionando a borda arredondada de volta */
+    border-radius: 8px; 
 }
 
 .buy-button:hover {
