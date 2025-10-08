@@ -1,4 +1,4 @@
-/* admin-style.css */
+/* admin-style.css (Versão com layout profissional) */
 body { 
     font-family: 'Roboto', sans-serif; 
     background-color: #f4f7f6; 
@@ -97,18 +97,42 @@ button:disabled {
     padding: 25px; 
     border-radius: 8px; 
 }
+
+/* ================================================== */
+/*        NOVO LAYOUT DA LISTA DE PRODUTOS            */
+/* ================================================== */
+
 #admin-product-list .product-item { 
-    display: flex; 
-    justify-content: space-between; 
+    /* 1. MUDANÇA PRINCIPAL: Usando Grid para o layout */
+    display: grid;
+    grid-template-columns: 1fr auto; /* Coluna 1 (texto) flexível, Coluna 2 (botões) automática */
+    gap: 15px; /* Espaço entre o texto e os botões */
     align-items: center; 
-    padding: 10px; 
+    padding: 15px 10px; 
     border-bottom: 1px solid #eee; 
 }
-#admin-product-list button { 
-    margin-left: 5px; 
-    padding: 5px 10px; 
-    font-size: 0.8em; 
+
+/* Estilo para o texto do produto */
+#admin-product-list .product-text {
+    /* 2. Garante que o texto não quebre o layout */
+    white-space: nowrap;      /* Impede a quebra de linha */
+    overflow: hidden;         /* Esconde o que transbordar */
+    text-overflow: ellipsis;  /* Adiciona "..." no final do texto cortado */
 }
+
+/* Container para os botões */
+#admin-product-list .product-actions {
+    display: flex; /* Mantém os botões lado a lado */
+    gap: 8px;      /* Espaço entre os botões Editar e Excluir */
+}
+
+#admin-product-list button { 
+    margin-left: 0; /* Remove a margem antiga */
+    padding: 8px 12px; 
+    font-size: 0.9em;
+    flex-shrink: 0; /* Impede que os botões encolham */
+}
+
 .btn-edit { 
     background-color: #f0ad4e; 
 }
