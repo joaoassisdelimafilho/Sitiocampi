@@ -1,11 +1,11 @@
 // firebase-config.js
 const firebaseConfig = {
-  apiKey: "AIzaSyAyam8w_BbG9F61tIXoekslM40IEMmPlGU",
-  authDomain: "sitio-campi-01.firebaseapp.com",
-  projectId: "sitio-campi-01",
-  storageBucket: "sitio-campi-01.firebasestorage.app",
-  messagingSenderId: "540036572615",
-  appId: "1:540036572615:web:3653bd0891a2a7cee025e2"
+  apiKey: "AIzaSyAcaWvls3M12BnU7vM4f52TcHvgA_tUHyg",
+  authDomain: "sitio-campi.firebaseapp.com",
+  projectId: "sitio-campi",
+  storageBucket: "sitio-campi.appspot.com",
+  messagingSenderId: "122258511621",
+  appId: "1:122258511621:web:689eb2817ba57a106e496c"
 };
 
 
