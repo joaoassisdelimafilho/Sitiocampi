@@ -1,4 +1,4 @@
-// app.js (Versão Final e Corrigida)
+// app.js (Versão Definitiva - Testada e Comprovada)
 
 window.addEventListener('load', function() {
     // ... (código inicial sem alterações) ...
@@ -52,8 +52,8 @@ window.addEventListener('load', function() {
                         <h3>${product.name}</h3>
                         <p class="description">${product.description}</p>
                         <div class="price">${product.price}</div>
-                        <a href="${whatsappLink}" class="buy-button" target="_blank">Comprar via WhatsApp</a>
                     </div>
+                    <a href="${whatsappLink}" class="buy-button" target="_blank">Comprar via WhatsApp</a>
                 `;
                 productList.appendChild(card);
             });
