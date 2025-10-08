@@ -1,4 +1,4 @@
-// app.js (Ajustado para a estrutura final e correta)
+// app.js (Versão Final e Corrigida)
 
 window.addEventListener('load', function() {
     // ... (código inicial sem alterações) ...
@@ -43,7 +43,7 @@ window.addEventListener('load', function() {
                 const message = encodeURIComponent(`Olá! Tenho interesse em comprar: ${product.name} (${product.price}).`);
                 const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
 
-                // MUDANÇA AQUI: Estrutura HTML simplificada e correta
+                // ESTRUTURA HTML FINAL E CORRETA
                 card.innerHTML = `
                     <div class="product-image-container">
                         <img src="${product.imageUrl}" alt="${product.name}" loading="lazy">
@@ -52,8 +52,8 @@ window.addEventListener('load', function() {
                         <h3>${product.name}</h3>
                         <p class="description">${product.description}</p>
                         <div class="price">${product.price}</div>
+                        <a href="${whatsappLink}" class="buy-button" target="_blank">Comprar via WhatsApp</a>
                     </div>
-                    <a href="${whatsappLink}" class="buy-button" target="_blank">Comprar via WhatsApp</a>
                 `;
                 productList.appendChild(card);
             });
