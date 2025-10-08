@@ -1,16 +1,17 @@
-// app.js (Atualizado para exibir o Slogan)
+// app.js (Versão Final Corrigida)
 
-// --- REGISTRO DO SERVICE WORKER (PWA) ---
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
+window.addEventListener('load', function() {
+    // --- 1. REGISTRO DO SERVICE WORKER (PWA) ---
+    // A primeira coisa que fazemos é registrar o Service Worker.
+    if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
             .then(registration => console.log('PWA: Service Worker registrado com sucesso.'))
             .catch(err => console.error('PWA: Falha ao registrar Service Worker:', err));
-    });
-}
+    }
 
-// --- LÓGICA PRINCIPAL DA APLICAÇÃO ---
-window.addEventListener('load', function() {
+    // --- 2. LÓGICA PRINCIPAL DA APLICAÇÃO ---
+    // Somente depois, continuamos com a lógica do Firebase.
+    
     if (typeof firebase === 'undefined' || typeof firebase.firestore === 'undefined') {
         console.error("ERRO CRÍTICO: Firebase ou Firestore não foi carregado.");
         return;
@@ -21,7 +22,7 @@ window.addEventListener('load', function() {
     // Elementos do DOM
     const productList = document.getElementById('product-list');
     const siteTitle = document.getElementById('site-title');
-    const siteSlogan = document.getElementById('site-slogan'); // NOVO
+    const siteSlogan = document.getElementById('site-slogan');
     const pageTitle = document.querySelector('title');
 
     // Busca as configurações do site
@@ -38,7 +39,7 @@ window.addEventListener('load', function() {
         // Atualiza os elementos da página com os dados do Firebase
         const whatsappNumber = settings.whatsappNumber || '5500000000000';
         siteTitle.textContent = settings.siteName || 'Sítio';
-        siteSlogan.textContent = settings.siteSlogan || 'Produtos frescos da roça, direto para sua mesa!'; // NOVO
+        siteSlogan.textContent = settings.siteSlogan || 'Produtos frescos da roça, direto para sua mesa!';
         pageTitle.textContent = settings.siteName || 'Sítio';
 
         // Busca os produtos
