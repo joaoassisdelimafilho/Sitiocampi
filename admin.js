@@ -1,12 +1,14 @@
-// admin.js (Ajustado para o novo layout da lista)
+// admin.js (Atualizado para gerenciar a URL da imagem de fundo)
 
 window.addEventListener('load', function() {
     // --- ELEMENTOS DO DOM ---
     const logoutButton = document.getElementById('logout-button');
     const settingsForm = document.getElementById('settings-form');
     const siteNameInput = document.getElementById('setting-site-name');
+    const headerBgImageInput = document.getElementById('setting-header-bg-image'); // NOVO
     const siteSloganInput = document.getElementById('setting-site-slogan');
     const whatsappInput = document.getElementById('setting-whatsapp');
+    // ... resto dos elementos ...
     const productForm = document.getElementById('product-form');
     const productIdInput = document.getElementById('product-id');
     const productNameInput = document.getElementById('product-name');
@@ -22,23 +24,23 @@ window.addEventListener('load', function() {
             window.location.replace('login.html');
         }
     });
-
-    logoutButton.addEventListener('click', () => {
-        auth.signOut();
-    });
+    logoutButton.addEventListener('click', () => auth.signOut());
 
     // --- LÓGICA DE CONFIGURAÇÕES ---
     const settingsRef = db.collection('settings').doc('siteConfig');
 
+    // Carrega os dados existentes
     settingsRef.get().then(doc => {
         if (doc.exists) {
             const data = doc.data();
             siteNameInput.value = data.siteName || '';
+            headerBgImageInput.value = data.headerBgImageUrl || ''; // NOVO
             siteSloganInput.value = data.siteSlogan || '';
             whatsappInput.value = data.whatsappNumber || '';
         }
     });
 
+    // Salva os dados
     settingsForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const submitButton = e.target.querySelector('button');
@@ -46,6 +48,7 @@ window.addEventListener('load', function() {
 
         settingsRef.set({
             siteName: siteNameInput.value,
+            headerBgImageUrl: headerBgImageInput.value, // NOVO
             siteSlogan: siteSloganInput.value,
             whatsappNumber: whatsappInput.value
         }, { merge: true })
@@ -60,25 +63,20 @@ window.addEventListener('load', function() {
         });
     });
 
-    // --- LÓGICA DE PRODUTOS ---
+    // --- LÓGICA DE PRODUTOS (sem alterações) ---
     const productsRef = db.collection('products');
-
     const resetProductForm = () => {
         productForm.reset();
         productIdInput.value = '';
         cancelEditButton.style.display = 'none';
     };
-
     cancelEditButton.addEventListener('click', resetProductForm);
-
     productsRef.orderBy('name').onSnapshot(snapshot => {
         adminProductList.innerHTML = '';
         snapshot.forEach(doc => {
             const product = doc.data();
             const item = document.createElement('div');
             item.className = 'product-item';
-
-            // MUDANÇA AQUI: Nova estrutura HTML para funcionar com o Grid
             item.innerHTML = `
                 <span class="product-text"><strong>${product.name}</strong> - ${product.price}</span>
                 <div class="product-actions">
@@ -89,11 +87,9 @@ window.addEventListener('load', function() {
             adminProductList.appendChild(item);
         });
     });
-
     adminProductList.addEventListener('click', (e) => {
         const target = e.target;
         const id = target.dataset.id;
-
         if (target.classList.contains('btn-edit')) {
             productsRef.doc(id).get().then(doc => {
                 if (doc.exists) {
@@ -108,21 +104,18 @@ window.addEventListener('load', function() {
                 }
             });
         }
-
         if (target.classList.contains('btn-delete')) {
             if (confirm('Tem certeza que deseja excluir este produto?')) {
                 productsRef.doc(id).delete();
             }
         }
     });
-
     productForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const id = productIdInput.value;
         const submitButton = e.target.querySelector('button[type="submit"]');
         submitButton.disabled = true;
         submitButton.textContent = 'Salvando...';
-
         const productData = {
             name: productNameInput.value,
             description: productDescInput.value,
@@ -130,11 +123,7 @@ window.addEventListener('load', function() {
             imageUrl: productImageUrlInput.value,
             createdAt: new Date()
         };
-
-        const promise = id 
-            ? productsRef.doc(id).update(productData)
-            : productsRef.add(productData);
-
+        const promise = id ? productsRef.doc(id).update(productData) : productsRef.add(productData);
         promise.then(() => {
             alert(id ? 'Produto atualizado!' : 'Produto salvo!');
             resetProductForm();
@@ -146,6 +135,5 @@ window.addEventListener('load', function() {
             submitButton.textContent = 'Salvar Produto';
         });
     });
-
     resetProductForm();
 });
