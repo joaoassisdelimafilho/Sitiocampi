@@ -1,4 +1,4 @@
-/* style.css (Versão Final com Botão Arredondado) */
+/* style.css (Versão Final e Definitiva) */
 :root {
     --primary-color: #386641;
     --secondary-color: #6A994E;
@@ -82,6 +82,10 @@ header p {
     align-items: stretch;
 }
 
+/* ================================================== */
+/*        ESTRUTURA FINAL DO CARD DE PRODUTO          */
+/* ================================================== */
+
 .product-card {
     background-color: var(--card-bg);
     border-radius: 12px;
@@ -115,7 +119,7 @@ header p {
 
 .product-info {
     padding: 25px;
-    flex-grow: 1;
+    flex-grow: 1; /* A MÁGICA: O container do texto cresce */
     display: flex;
     flex-direction: column;
 }
@@ -137,18 +141,13 @@ header p {
     font-size: 1.6em;
     font-weight: 700;
     color: var(--secondary-color);
-    margin-top: auto;
+    margin-top: auto; /* Empurra o preço para a base do .product-info */
     padding-top: 20px;
 }
 
-/* ================================================== */
-/*        BOTÃO COM O DESIGN CORRETO                  */
-/* ================================================== */
-
 .buy-button {
     display: block;
-    width: 100%;
-    padding: 15px;
+    padding: 18px 25px;
     background-color: var(--secondary-color);
     color: white;
     text-align: center;
@@ -158,9 +157,8 @@ header p {
     font-size: 1.1em;
     font-weight: 500;
     transition: background-color 0.3s ease;
-    margin-top: 20px;
-    /* A MUDANÇA ESTÁ AQUI: Adicionando a borda arredondada de volta */
-    border-radius: 8px; 
+    /* O botão não tem mais borda arredondada, pois ele é a base do card */
+    border-radius: 0; 
 }
 
 .buy-button:hover {
