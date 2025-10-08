@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css (Versão Completa e Atualizada) */
 :root {
     --primary-color: #386641; /* Verde escuro (bosque) */
     --secondary-color: #6A994E; /* Verde claro (folha) */
@@ -23,12 +23,37 @@ body {
     padding: 20px;
 }
 
+/* ================================================== */
+/*        ESTILO DO CABEÇALHO COM IMAGEM DE FUNDO     */
+/* ================================================== */
+
 header {
-    background: var(--primary-color);
+    /* Cor de fundo sólida que aparece caso a imagem não carregue */
+    background-color: var(--primary-color); 
+    
+    /* Estilos para a imagem de fundo que será adicionada via JS */
+    background-size: cover;       /* Faz a imagem cobrir todo o espaço */
+    background-position: center;  /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Impede que a imagem se repita */
+
     color: white;
     text-align: center;
-    padding: 40px 20px;
+    padding: 60px 20px; /* Aumentei o padding para dar mais espaço para a imagem */
     border-bottom: 5px solid var(--secondary-color);
+    position: relative; /* Necessário para a camada de sobreposição */
+    z-index: 1; /* Garante que o conteúdo do header fique acima da camada de sobreposição */
+}
+
+/* Camada escura para garantir a legibilidade do texto sobre a imagem */
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Cor preta com 40% de opacidade */
+    z-index: -1; /* Coloca a camada atrás do conteúdo (texto e ícone) */
 }
 
 .header-icon {
@@ -42,12 +67,18 @@ header h1 {
     margin: 0;
     font-family: var(--font-primary);
     font-size: 3em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra no texto para melhor leitura */
 }
 
 header p {
-    font-size: 1.1em;
-    opacity: 0.9;
+    font-size: 1.2em; /* Aumentei um pouco para destacar */
+    opacity: 0.95;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra no texto para melhor leitura */
 }
+
+/* ================================================== */
+/*        RESTANTE DOS ESTILOS (SEM ALTERAÇÕES)       */
+/* ================================================== */
 
 .section-title {
     text-align: center;
@@ -83,7 +114,7 @@ header p {
     height: 200px;
     object-fit: cover;
     border-bottom: 1px solid #eee;
-    background-color: #e0e0e0; /* Cor de fundo enquanto a imagem carrega */
+    background-color: #e0e0e0;
 }
 
 .product-info {
