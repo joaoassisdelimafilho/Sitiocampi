@@ -10,10 +10,12 @@ window.addEventListener('load', function() {
     }
 
     // --- 2. LÓGICA PRINCIPAL DA APLICAÇÃO ---
-    // Somente depois, continuamos com a lógica do Firebase.
+    // Somente depois, continuamos com a lógica do Firebase, tudo dentro do mesmo bloco.
     
     if (typeof firebase === 'undefined' || typeof firebase.firestore === 'undefined') {
         console.error("ERRO CRÍTICO: Firebase ou Firestore não foi carregado.");
+        // Mostra uma mensagem de erro mais clara para o usuário
+        document.getElementById('product-list').innerHTML = `<p style="color: red;">Erro de configuração. O Firebase não carregou corretamente.</p>`;
         return;
     }
 
@@ -44,6 +46,7 @@ window.addEventListener('load', function() {
 
         // Busca os produtos
         db.collection('products').orderBy('name').onSnapshot(snapshot => {
+            // Limpa a área de produtos (removendo os skeletons de carregamento)
             productList.innerHTML = ''; 
             
             if (snapshot.empty) {
@@ -72,7 +75,7 @@ window.addEventListener('load', function() {
             });
         }, error => {
             console.error("ERRO AO BUSCAR PRODUTOS:", error);
-            productList.innerHTML = `<p style="color: red;">Erro ao carregar produtos. Verifique o console (F12).</p>`;
+            productList.innerHTML = `<p style="color: red;">Erro ao carregar produtos. Verifique as regras do Firestore e o console (F12).</p>`;
         });
 
     }).catch(error => {
