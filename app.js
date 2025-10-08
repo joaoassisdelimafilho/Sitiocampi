@@ -1,33 +1,29 @@
-// app.js (Versão Final com verificação de inicialização)
+// app.js (Versão Final, Testada e Corrigida - sem onAuthStateChanged)
 
-// A função principal só será executada quando o Firebase estiver 100% carregado.
-// Usamos onAuthStateChanged como um gatilho seguro para iniciar a lógica do app.
-firebase.auth().onAuthStateChanged(() => {
-    console.log("Firebase pronto. Iniciando a lógica principal do app.");
+window.addEventListener('load', function() {
+    console.log("Página carregada, app.js executando com 'defer'.");
 
-    // --- 1. REGISTRO DO SERVICE WORKER (PWA) ---
+    // --- REGISTRO DO SERVICE WORKER (PWA) ---
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
             .then(registration => console.log('PWA: Service Worker registrado com sucesso.'))
             .catch(err => console.error('PWA: Falha ao registrar Service Worker:', err));
     }
 
-    // --- 2. LÓGICA PRINCIPAL DA APLICAÇÃO ---
-    if (typeof firebase.firestore === 'undefined') {
-        console.error("ERRO CRÍTICO: Firestore não está disponível.");
+    // --- LÓGICA PRINCIPAL DA APLICAÇÃO ---
+    if (typeof firebase === 'undefined' || typeof firebase.firestore === 'undefined') {
+        console.error("ERRO CRÍTICO: Firebase ou Firestore não foi carregado.");
         document.getElementById('product-list').innerHTML = `<p style="color: red;">Erro crítico: O banco de dados não pôde ser carregado.</p>`;
         return;
     }
 
     const db = firebase.firestore();
 
-    // Elementos do DOM
     const productList = document.getElementById('product-list');
     const siteTitle = document.getElementById('site-title');
     const siteSlogan = document.getElementById('site-slogan');
     const pageTitle = document.querySelector('title');
 
-    // Busca as configurações do site
     const settingsRef = db.collection('settings').doc('siteConfig');
     
     settingsRef.get().then(doc => {
@@ -35,15 +31,14 @@ firebase.auth().onAuthStateChanged(() => {
         if (doc.exists) {
             settings = doc.data();
         } else {
-            console.warn("AVISO: Documento de configurações não encontrado! Usando valores padrão.");
+            console.warn("AVISO: Documento de configurações não encontrado!");
         }
 
         const whatsappNumber = settings.whatsappNumber || '5500000000000';
         siteTitle.textContent = settings.siteName || 'Sítio';
-        siteSlogan.textContent = settings.siteSlogan || 'Produtos frescos da roça, direto para sua mesa!';
+        siteSlogan.textContent = settings.siteSlogan || 'Carregando slogan...';
         pageTitle.textContent = settings.siteName || 'Sítio';
 
-        // Busca os produtos
         db.collection('products').orderBy('name').onSnapshot(snapshot => {
             productList.innerHTML = ''; 
             
@@ -73,8 +68,7 @@ firebase.auth().onAuthStateChanged(() => {
             });
         }, error => {
             console.error("ERRO AO BUSCAR PRODUTOS:", error);
-            // Este erro agora deve ser mais específico se acontecer
-            productList.innerHTML = `<p style="color: red;">Erro ao carregar produtos. Verifique o console para detalhes (F12).</p>`;
+            productList.innerHTML = `<p style="color: red;">Erro ao carregar produtos. Verifique as regras e o índice no Firebase.</p>`;
         });
 
     }).catch(error => {
