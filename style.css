@@ -1,4 +1,4 @@
-/* style.css (Versão com Refinamento de Design Profissional) */
+/* style.css (Versão Final com a correção do botão) */
 :root {
     --primary-color: #386641;
     --secondary-color: #6A994E;
@@ -85,8 +85,7 @@ header p {
     background-color: var(--card-bg);
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-    /* A MUDANÇA AQUI: O overflow:hidden estava impedindo o novo estilo do botão. */
-    /* overflow: hidden; (REMOVIDO) */
+    overflow: hidden; /* A PROPRIEDADE VOLTOU. ELA É ESSENCIAL. */
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -102,9 +101,6 @@ header p {
     width: 100%;
     padding-top: 75%; 
     background-color: #e0e0e0;
-    /* Adicionando borda arredondada apenas no topo */
-    border-radius: 12px 12px 0 0;
-    overflow: hidden; /* Garante que a imagem não vaze das bordas arredondadas */
 }
 
 .product-card img {
@@ -117,8 +113,7 @@ header p {
 }
 
 .product-info {
-    /* AUMENTANDO O RESPIRO: Mais espaço nas laterais */
-    padding: 25px; 
+    padding: 25px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -138,22 +133,23 @@ header p {
 .product-info .description {
     font-size: 0.95em;
     color: #666;
-    margin-bottom: 20px; /* Mais espaço abaixo da descrição */
+    margin-bottom: 20px;
 }
 
 .product-info .price {
-    /* DANDO DESTAQUE AO PREÇO */
-    font-size: 1.6em; /* Fonte maior */
+    font-size: 1.6em;
     font-weight: 700;
-    color: var(--secondary-color); /* Cor de destaque */
+    color: var(--secondary-color);
 }
 
+/* ================================================== */
+/*        BOTÃO CORRIGIDO E SIMPLIFICADO              */
+/* ================================================== */
+
 .buy-button {
-    /* BOTÃO MODERNIZADO */
     display: block;
-    width: calc(100% + 50px); /* Largura total (100% + padding lateral dobrado) */
-    margin: 25px -25px -25px -25px; /* Margem negativa para "quebrar" o padding */
-    padding: 18px 25px; /* Botão mais "alto" e robusto */
+    width: 100%;
+    padding: 15px;
     background-color: var(--secondary-color);
     color: white;
     text-align: center;
@@ -163,8 +159,8 @@ header p {
     font-size: 1.1em;
     font-weight: 500;
     transition: background-color 0.3s ease;
-    /* Borda arredondada apenas na base */
-    border-radius: 0 0 12px 12px; 
+    border-radius: 8px; /* Borda simples e elegante */
+    margin-top: 20px; /* Espaço entre o preço e o botão */
 }
 
 .buy-button:hover {
