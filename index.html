@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- O título será preenchido pelo JavaScript -->
     <title>Carregando...</title>
     
-    <!-- Configurações do PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#386641">
 
-    <!-- Fontes do Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Folha de Estilo -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,16 +19,14 @@
     <header>
         <div class="container">
             <img src="https://img.icons8.com/ios-filled/50/ffffff/potted-plant.png" alt="Ícone de planta" class="header-icon"/>
-            <!-- O nome do sítio será preenchido pelo JavaScript -->
             <h1 id="site-title">Sítio Campi</h1>
-            <p>Produtos frescos da roça, direto para sua mesa!</p>
+            <p id="site-slogan">Produtos frescos da roça, direto para sua mesa!</p>
         </div>
     </header>
 
     <main class="container">
         <h2 class="section-title">Nossos Produtos</h2>
         <div id="product-list" class="product-grid">
-            <!-- Efeitos de carregamento que serão substituídos pelos produtos -->
             <div class="skeleton-card"></div>
             <div class="skeleton-card"></div>
             <div class="skeleton-card"></div>
@@ -43,19 +37,13 @@
         <p>&copy; 2025 - Sítio Campi</p>
     </footer>
 
-    <!-- ================================================== -->
-    <!--                SCRIPTS DO PROJETO                -->
-    <!-- ================================================== -->
-
-    <!-- 1. Carrega as bibliotecas do Firebase primeiro -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
-    <!-- 2. Carrega a sua configuração, que cria a variável 'db' -->
     <script src="firebase-config.js"></script>
     
-    <!-- 3. Carrega o script da página, que USA a variável 'db' e registra o Service Worker -->
-    <script src="app.js"></script>
+    <!-- MUDANÇA CRÍTICA AQUI: Adicionado o atributo 'defer' -->
+    <script src="app.js" defer></script>
     
 </body>
 </html>
