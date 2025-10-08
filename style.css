@@ -1,4 +1,4 @@
-/* style.css (Versão com layout de card profissional) */
+/* style.css (Versão com layout de card profissional - CORRIGIDO) */
 :root {
     --primary-color: #386641;
     --secondary-color: #6A994E;
@@ -114,15 +114,19 @@ header p {
 }
 
 /* ================================================== */
-/*        LAYOUT PROFISSIONAL DO CARD DE PRODUTO      */
+/*        NOVO LAYOUT PROFISSIONAL DO CARD            */
 /* ================================================== */
 
 .product-info {
     padding: 20px;
-    /* 1. O container de informações agora é flexível e ocupa todo o espaço restante */
-    flex-grow: 1;
+    flex-grow: 1; /* Faz esta área ocupar todo o espaço vertical disponível */
     display: flex;
     flex-direction: column;
+}
+
+/* NOVO: Um container para o conteúdo de texto */
+.product-text-content {
+    flex-grow: 1; /* Esta é a MÁGICA: Este container cresce, empurrando o botão para baixo */
 }
 
 .product-info h3 {
@@ -135,8 +139,6 @@ header p {
 .product-info .description {
     font-size: 0.95em;
     color: #666;
-    /* 2. A descrição não cresce mais para preencher o espaço */
-    /* flex-grow: 1; (REMOVIDO) */
     margin-bottom: 15px;
 }
 
@@ -144,16 +146,11 @@ header p {
     font-size: 1.4em;
     font-weight: 700;
     color: var(--secondary-color);
-    /* 3. A MÁGICA: O preço agora empurra todo o espaço vazio para cima dele */
-    margin-top: auto; /* Isso alinha o preço e o botão na base do card */
-    padding-top: 15px; /* Adiciona um respiro acima do preço */
 }
 
 .buy-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    display: block; /* Mudado para block */
+    width: 100%;    /* Ocupa 100% da largura do seu container (.product-info) */
     padding: 15px;
     background-color: var(--secondary-color);
     color: white;
@@ -164,10 +161,8 @@ header p {
     font-size: 1.1em;
     font-weight: 500;
     transition: background-color 0.3s ease;
-    /* Adicionado para remover a borda arredondada apenas no topo */
-    border-radius: 0 0 12px 12px;
-    margin: 0 -20px -20px -20px; /* Faz o botão ocupar toda a largura do card */
-    width: calc(100% + 40px);
+    border-radius: 8px; /* Borda simples e elegante */
+    margin-top: 20px; /* Espaço entre o preço e o botão */
 }
 
 .buy-button:hover {
@@ -186,7 +181,7 @@ footer {
 .skeleton-card {
     background-color: #e0e0e0;
     border-radius: 12px;
-    height: 450px; /* Ajustado para o novo tamanho potencial */
+    height: 450px;
     animation: pulse 1.5s infinite ease-in-out;
 }
 
